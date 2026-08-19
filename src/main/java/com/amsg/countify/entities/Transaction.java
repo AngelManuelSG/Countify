@@ -2,19 +2,20 @@ package com.amsg.countify.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Temporal;
 
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@EqualsAndHashCode(of = "transaction_id")
+@EqualsAndHashCode(of = "transactionId")
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long transaction_id;
+    private Long transactionId;
 
     @Column(nullable = false)
     @Setter
@@ -23,24 +24,25 @@ public class Transaction {
 
     @Column(nullable = false)
     @Setter
-    @Temporal
-    private Date transaction_date;
+    private LocalDate transactionDate;
 
     @Column(nullable = false)
     @Setter
-    private Integer quantity;
+    private BigDecimal quantity;
 
     @Column(nullable = false)
     @Setter
     private String description;
 
     @Setter
-    private String large_description;
+    private String largeDescription;
 
     @ManyToOne
+    @JoinColumn(name = "user_fk")
     private AppUser user;
 
     @ManyToOne
+    @JoinColumn(name = "category_fk")
     private Category category;
 
 }

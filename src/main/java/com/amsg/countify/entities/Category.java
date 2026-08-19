@@ -9,23 +9,24 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@EqualsAndHashCode(of = "cat_id")
+@EqualsAndHashCode(of = "catId")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cat_id;
+    private Long catId;
 
     @Column(nullable = false, unique = true)
     @Setter
-    private String cat_name;
+    private String catName;
 
     @Column(nullable = false)
     @Setter
-    private String cat_description;
+    private String catDescription;
 
     @OneToMany(mappedBy = "category")
     private List<Transaction> transactions;
 
     @ManyToOne
+    @JoinColumn(name = "user_fk")
     private AppUser user;
 }

@@ -1,8 +1,8 @@
 package com.amsg.countify.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Temporal;
-import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.List;
 
 import lombok.*;
@@ -11,16 +11,16 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "user_id")
+@EqualsAndHashCode(of = "userId")
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
-    private Long user_id;
+    private Long userId;
 
     @Column(nullable = false, unique = true)
     @Getter @Setter
-    private String user_name;
+    private String userName;
 
     @Column(nullable = false)
     @Getter @Setter
@@ -28,21 +28,20 @@ public class AppUser {
 
     @Column(nullable = false)
     @Getter @Setter
-    private String encrypted_password;
+    private String encryptedPassword;
 
     @Column(nullable = false)
-    @Temporal
     @Getter @Setter
-    private Date birth_date;
+    private LocalDate birthDate;
 
     @Getter @Setter
     private String phone;
 
     @Getter @Setter
-    private String profile_picture;
+    private String profilePicture;
 
     @OneToMany(mappedBy = "user")
-    private List<SpendingLimit> spendinglimits;
+    private List<SpendingLimit> spendingLimits;
 
     @OneToMany(mappedBy = "user")
     private List<Transaction> transactions;
