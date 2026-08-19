@@ -3,6 +3,8 @@ package com.amsg.countify.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,4 +22,10 @@ public class Category {
     @Column(nullable = false)
     @Setter
     private String cat_description;
+
+    @OneToMany(mappedBy = "category")
+    private List<Transaction> transactions;
+
+    @ManyToOne
+    private AppUser user;
 }

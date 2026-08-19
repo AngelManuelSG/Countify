@@ -7,7 +7,10 @@ import org.hibernate.annotations.Temporal;
 import java.util.Date;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@EqualsAndHashCode(of = "limit_id")
 public class SpendingLimit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +29,7 @@ public class SpendingLimit {
     @Column(nullable = false)
     @Setter
     private Integer limit_quantity;
+
+    @ManyToOne
+    private AppUser user;
 }

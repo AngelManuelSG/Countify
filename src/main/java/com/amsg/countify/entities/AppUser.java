@@ -3,6 +3,8 @@ package com.amsg.countify.entities;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Temporal;
 import java.util.Date;
+import java.util.List;
+
 import lombok.*;
 
 
@@ -39,9 +41,13 @@ public class AppUser {
     @Getter @Setter
     private String profile_picture;
 
+    @OneToMany(mappedBy = "user")
+    private List<SpendingLimit> spendinglimits;
 
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> transactions;
 
-
-
+    @OneToMany(mappedBy = "user")
+    private List<Category> categories;
 
 }
