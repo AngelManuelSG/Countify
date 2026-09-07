@@ -37,7 +37,7 @@ public class SecurityConfig {
 
                 // Auth rules for URLs.
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // Rutas públicas (Login, Registro)
+                        .requestMatchers("/api/v1/auth/**").permitAll() // Rutas públicas (Login, Registro)
                         .anyRequest().authenticated()               // Cualquier otra ruta requiere token válido
                 )
 

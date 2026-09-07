@@ -21,6 +21,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
 
+        ex.printStackTrace();
+
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
@@ -35,6 +37,8 @@ public class GlobalExceptionHandler {
     // --------------------------------------------------------------------------
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<Map<String, String>> handleBadCredentialsException(BadCredentialsException ex){
+        ex.printStackTrace();
+
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of("message", "Credenciales incorrectas: te has equivocado en usuario o contraseña"));
@@ -46,6 +50,7 @@ public class GlobalExceptionHandler {
     // --------------------------------------------------------------------------
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleAllUncaughtExceptions(Exception ex) {
+        ex.printStackTrace();
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)

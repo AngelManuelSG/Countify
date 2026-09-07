@@ -69,7 +69,7 @@ public class AppUser implements UserDetails {
 
 
     @Override
-    public @Nullable String getPassword() {
+    public String getPassword() {
         return this.encryptedPassword;
     }
 
