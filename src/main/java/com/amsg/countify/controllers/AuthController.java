@@ -3,16 +3,14 @@ package com.amsg.countify.controllers;
 import com.amsg.countify.dtos.AuthResponse;
 import com.amsg.countify.dtos.LoginRequest;
 import com.amsg.countify.dtos.RegisterRequest;
-import com.amsg.countify.entities.AppUser;
 import com.amsg.countify.repositories.AppUserRepository;
 import com.amsg.countify.security.JWTUtils;
+import com.amsg.countify.services.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +35,13 @@ public class AuthController {
     @Autowired
     private JWTUtils jwtUtils;
 
+    private final AuthService authService;
+
+    public AuthController(AuthService authService){
+        this.authService = authService;
+    }
+
+
 
     // ------------------------------------------------------------------------------
     // REGISTER ENDPOINT
@@ -49,33 +54,11 @@ public class AuthController {
     // 201 CREATED          -- user created correctly
     // 500 UNEXPECTED ERROR -- otherwise
     // ------------------------------------------------------------------------------
-
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest request){
-
-        // Checking the username
-        if (appUserRepository.existsByUserName(request.userName())){
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body(Map.of("message", "Error: El nombre de usuario ya está en uso"));
-        }
-
-        // Map DTO to entity
-        AppUser newUser = new AppUser();
-        newUser.setUserName(request.userName());
-        newUser.setEmail(request.email());
-        newUser.setPhone(request.phone());
-        newUser.setBirthDate(request.birthDate());
-        newUser.setProfilePicture(request.profilePicture());
-        // Encrypting the password for storing at the DB
-        String encryptedPassword = passwordEncoder.encode(request.password());
-        newUser.setEncryptedPassword(encryptedPassword);
-        // Save the new user at the DB
-        appUserRepository.save(newUser);
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(Map.of("message", "Usuario creado correctamente"));
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request) {
+        authService.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Map.of("message", "Usuario registrado exitosamente"));
     }
 
 
@@ -89,14 +72,9 @@ public class AuthController {
     // 500 UNEXPECTED ERROR -- otherwise
     // -----------------------------------------------------------------------------
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest request) {
-        //Verify the user and password
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.userName(), request.password()));
-        //Generate the token
-        String jwt = jwtUtils.generateToken(authentication.getName());
-        //Returning response with jwt
-        return ResponseEntity.ok(new AuthResponse(jwt));
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+        AuthResponse response = authService.login(request);
+        return ResponseEntity.ok(response);
     }
 
 }
