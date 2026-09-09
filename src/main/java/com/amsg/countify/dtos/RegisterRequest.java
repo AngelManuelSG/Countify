@@ -2,10 +2,7 @@ package com.amsg.countify.dtos;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
@@ -31,11 +28,12 @@ public record RegisterRequest(
         String password,
 
         @NotNull(message = "La fecha de nacimiento es obligatoria")
-        @JsonFormat(pattern = "dd/MM/yyyy") // Permite parsear la fecha en formato "01/09/2022"
+        @JsonFormat(pattern = "dd/MM/yyyy")
+        @Past(message = "No has podido nacer en el futuro...")
         LocalDate birthDate,
 
         // It's optional. With a format given by the shown pattern
-        @Pattern(regexp = "^$|^[0-9\\s+]{9,15}$", message = "El formato de teléfono no es válido")
+        @Pattern(regexp = "^\\+?[1-9]\\d{8,14}$", message = "El formato de teléfono no es válido")
         String phone,
 
         // Optional
