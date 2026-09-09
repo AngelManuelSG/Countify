@@ -23,6 +23,10 @@ public class Category {
     @Setter
     private String catDescription;
 
+    @Setter
+    @Column(length = 7)
+    private String color;
+
     @OneToMany(mappedBy = "category")
     private List<Transaction> transactions;
 
