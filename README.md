@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <b>Countify</b> es actualmente un proyecto de API RESTful moderna, escalable y robusta diseñada para la gestión integral de finanzas personales. Pretende permitir a los usuarios llevar un control estricto de sus transacciones, personalizar sus categorías de gasto con límites de presupuesto y analizar sus hábitos financieros mediante una arquitectura segura y desacoplada.
+  <b>Countify</b> es actualmente un proyecto personal de API RESTful moderna, escalable y robusta diseñada para la gestión integral de finanzas personales. Pretende permitir a los usuarios llevar un control estricto de sus transacciones, personalizar sus categorías de gasto con límites de presupuesto y analizar sus hábitos financieros mediante una arquitectura segura y desacoplada.
 </p>
 
 ---
@@ -47,9 +47,8 @@ El proyecto sigue una arquitectura en capas desacoplada (*Layered Architecture*)
 ```text
 com.amsg.countify
  ├── controllers      # Endpoints RESTful y manejo de peticiones HTTP
- ├── services         # Lógica de negocio e integración
- ├── repositories     # Interfaces de acceso a datos con Spring Data JPA
- ├── entities         # Modelos de dominio / Tablas de la base de datos
- ├── dto              # Data Transfer Objects (Java Records) y Validaciones
- ├── config           # Configuración de Seguridad (JWT, CORS, BCrypt)
- └── exceptions       # Manejo global de excepciones (@ControllerAdvice)
+ ├── dtos                  # Data Transfer Objects (Java Records) y Validaciones
+ ├── entities            # Modelos de dominio / Tablas de la base de datos
+ ├── repositories   # Interfaces de acceso a datos con Spring Data JPA
+ ├── security           # Configuración de Seguridad (JWT, CORS, BCrypt)
+ └── services          # Lógica de negocio e integración
