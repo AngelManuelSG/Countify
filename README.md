@@ -47,11 +47,11 @@ El proyecto sigue una arquitectura en capas desacoplada (*Layered Architecture*)
 ```text
 com.amsg.countify
  ├── controllers      # Endpoints RESTful y manejo de peticiones HTTP
- ├── dtos                  # Data Transfer Objects (Java Records) y Validaciones
- ├── entities            # Modelos de dominio / Tablas de la base de datos
- ├── repositories   # Interfaces de acceso a datos con Spring Data JPA
- ├── security           # Configuración de Seguridad (JWT, CORS, BCrypt)
- └── services          # Lógica de negocio e integración
+ ├── dtos             # Data Transfer Objects (Java Records) y Validaciones
+ ├── entities         # Modelos de dominio / Tablas de la base de datos
+ ├── repositories     # Interfaces de acceso a datos con Spring Data JPA
+ ├── security         # Configuración de Seguridad (JWT, CORS, BCrypt)
+ └── services         # Lógica de negocio e integración
 ```
 
 ---
