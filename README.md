@@ -52,3 +52,11 @@ com.amsg.countify
  ├── repositories   # Interfaces de acceso a datos con Spring Data JPA
  ├── security           # Configuración de Seguridad (JWT, CORS, BCrypt)
  └── services          # Lógica de negocio e integración
+```
+
+---
+
+## 💻 Configuración previa
+- Java JDK 21 o superior instalado.
+- Maven 3.8+
+- Instancia MySQL en ejecución.
